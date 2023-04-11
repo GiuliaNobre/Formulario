@@ -1,9 +1,10 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed} from 'vue'
 const usuario = ref({
   nome: '',
   email: '',
   senha: '',
+  confirmaSenha: '',
   dataNasci: 0,
   endereco: '',
   cidade: '',
@@ -13,44 +14,50 @@ const usuario = ref({
   biografia: '',
 })
 
-const confirmaUsuario = computed(() => {
-  if (usuario.value.nome.length >= 3 && usuario.value.nome.length
-    < 20 && usuario.value.email.includes("@gmail.com") && usuario.value.senha === usuario.value.senha &&
-    usuario.value.dataNasci > 18 && usuario.value.endereco.length > 3 && usuario.value.endereco.length > 3 &&
-    usuario.value.cidade.length > 3 && usuario.value.estado.length > 4 && usuario.value.hobbies.length > 3 &&
-    usuario.value.lingProg.length > 3 && usuario.value.biografia.length) {
+const enviar = ref(false)
 
+function confirma() {
+  if (usuario.value.senha != usuario.value.confirmaSenha) {
+    alert("senha incorreta")
   }
-})
+  else {
+    enviar.value = !enviar.value
+  }
+}
+
 </script>
 <template>
   <div>
 
-    <form action="">
+    <form @submit.prevent="confirma">
 
-      <p>Nome digitado é: {{ usuario.nome }}</p>
+      <p>Nome</p>
       <input type="text" v-model="usuario.nome">
 
-      <p>Email digitado é: {{ usuario.email }}</p>
+      <p>Email</p>
       <input type="email" v-model="usuario.email" />
 
-      <p>Senha digitada é: {{ usuario.senha }}</p>
+      <p>Senha </p>
       <input type="password" v-model="usuario.senha" />
 
-      <p>Data de Nascimento digitada é: {{ usuario.dataNasci }}</p>
-      <input type="number" v-model="usuario.dataNasci" />
+      <p>Confirma senha</p>
+      <input type="password" v-model="usuario.confirmaSenha" placeholder="confirme sua senha"/>
 
-      <p>Endereco digitado é: {{ usuario.endereco }}</p>
+
+      <p>Data de nascimento</p>
+      <input type="date" v-model="usuario.dataNasci" />
+
+      <p>Endereço</p>
       <input type="endereco" v-model="usuario.endereco" />
 
-      <p>Cidade digitada é: {{ usuario.cidade }}</p>
+      <p>Cidade</p>
       <input type="text" v-model="usuario.cidade" />
 
-      <p>Estado digitado é: {{ usuario.estado }}</p>
+      <p>Estado </p>
 
 
       <select name="estado" id="estado">
-        <option value="AC">Acre</option>
+        <option value="AC">Acre</option>enviar
         <option value="AL">Alagoas</option>
         <option value="AP">Amapa</option>
         <option value="AM">Amazonas</option>
@@ -79,18 +86,39 @@ const confirmaUsuario = computed(() => {
         <option value="TO">Tocantins</option>
       </select>
 
-      <p>Hobbies digitados são: {{ usuario.hobbies }}</p>
+      <p>Hobbies </p>
       <input type="text" v-model="usuario.hobbies" />
 
-      <p>linguagem De Programacao digitada é: {{ usuario.linguagemProgramacao }}</p>
-      <input type="text" v-model="usuario.linguagemProgramacao" />
+      <p>linguagem De Programacao </p>
+      <input type="text" v-model="usuario.lingProg" />
 
-      <p>biografia digitado é: {{ usuario.biografia }}</p>
+      <p>biografia</p>
       <input type="text" v-model="usuario.biografia" />
     </form>
-    <button type="submit" @click="confirmaUsuario">
-   Aparecer
-    </button>
+    <button @click="confirma">Enviar</button>
+    <div class="info" v-if="enviar">
+      <p>Suas informações: </p>
+      <p>Nome digitado: {{ usuario.nome }}</p>
+      <p>Email digitado: {{ usuario.email }}</p>
+
+      <p>Senha digitada: {{ usuario.senha }}</p>
+
+
+      <p>Data de Nascimento digitada: {{ usuario.dataNasci }}</p>
+
+
+      <p>Endereco digitado: {{ usuario.endereco }}</p>
+
+      <p>Cidade digitada: {{ usuario.cidade }}</p>
+
+
+      <p>Estado digitado: {{ usuario.estado }}</p>
+
+      <p>Hobbies digitado: {{ usuario.hobbies }}</p>
+
+      <p>Linguagem de programação  {{ usuario.lingProg }}</p>
+
+    </div>
   </div>
 </template>
 <style scoped></style>
