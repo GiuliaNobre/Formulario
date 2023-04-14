@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 const usuario = ref({
   nome: '',
   email: '',
@@ -29,54 +29,58 @@ function confirma() {
 <template>
   <main class="container">
     <div class="login-box">
-
-
-
       <h2>Formulário</h2>
-
-      <form @submit.prevent="confirma">
-
+      <div class="info" v-if="enviar">
+        <p>Suas informações: </p>
+        <p>Nome digitado: {{ usuario.nome }}</p>
+        <p>Email digitado: {{ usuario.email }}</p>
+        <p>Senha digitada: {{ usuario.senha }}</p>
+        <p>Data de Nascimento digitada: {{ usuario.dataNasci }}</p>
+        <p>Endereco digitado: {{ usuario.endereco }}</p>
+        <p>Cidade digitada: {{ usuario.cidade }}</p>
+        <p>Estado digitado: {{ usuario.estado }}</p>
+        <p>Hobbies digitado: {{ usuario.hobbies }}</p>
+        <p>Linguagem de programação: {{ usuario.lingProg }}</p>
+      </div>
+      <form v-else @submit.prevent="confirma">
         <div class="user-box">
-          <p>Nome</p>
+          <label>Nome</label>
           <input type="text" v-model="usuario.nome" required="" />
         </div>
 
         <div class="user-box">
-          <p>Email</p>
+          <label>Email</label>
           <input type="email" v-model="usuario.email" required="">
         </div>
 
         <div class="user-box">
-          <p>Senha </p>
+          <label>Senha </label>
           <input type="password" v-model="usuario.senha" required="" />
         </div>
 
-
         <div class="user-box">
-          <p>Confirma senha</p>
-          <input type="password" v-model="usuario.confirmaSenha" placeholder="confirme sua senha" required="" />
-        </div>
-
-
-        <div class="user-box">
-          <p>Data de nascimento</p>
-          <input type="date" v-model="usuario.dataNasci" required="">
-        </div>
-
-
-        <div class="user-box">
-          <p>Endereço</p>
-          <input type="endereco" v-model="usuario.endereco" required="" />
+          <label>Confirma senha</label>
+          <input type="password" v-model="usuario.confirmaSenha" />
         </div>
 
         <div class="user-box">
-          <p>Cidade</p>
+          <label>Data de nascimento</label>
+          <input type="date" v-model="usuario.dataNasci">
+        </div>
+
+        <div class="user-box">
+          <label>Endereço</label>
+          <input type="endereco" v-model="usuario.endereco" />
+        </div>
+
+        <div class="user-box">
+          <label>Cidade</label>
           <input type="text" v-model="usuario.cidade" />
         </div>
 
-
         <div class="user-box">
-          <p>Estado </p>
+          <label>Estado </label>
+
           <select name="estado" id="estado">
             <option value="AC">Acre</option>enviar
             <option value="AL">Alagoas</option>
@@ -109,160 +113,97 @@ function confirma() {
         </div>
 
         <div class="user-box">
-          <p>Hobbies </p>
+          <label>Hobbies </label>
           <input type="text" v-model="usuario.hobbies" />
         </div>
 
 
         <div class="user-box">
-          <p>Linguagem De Programacao </p>
+          <label>Linguagem De Programacao </label>
           <input type="text" v-model="usuario.lingProg" />
         </div>
 
 
         <div class="user-box">
-          <p>Biografia</p>
+          <label>Biografia</label>
           <input type="text" v-model="usuario.biografia" />
         </div>
       </form>
 
+      
+      
       <div class="button">
-        <button @click="confirma">Enviar</button>
+        <button class="btn" @click="confirma">Enviar</button>
       </div>
 
-
-      <div class="info" v-if="enviar">
-        <p>Suas informações: </p>
-        <p>Nome digitado: {{ usuario.nome }}</p>
-        <p>Email digitado: {{ usuario.email }}</p>
-
-        <p>Senha digitada: {{ usuario.senha }}</p>
-
-
-        <p>Data de Nascimento digitada: {{ usuario.dataNasci }}</p>
-
-
-        <p>Endereco digitado: {{ usuario.endereco }}</p>
-
-        <p>Cidade digitada: {{ usuario.cidade }}</p>
-
-
-        <p>Estado digitado: {{ usuario.estado }}</p>
-
-        <p>Hobbies digitado: {{ usuario.hobbies }}</p>
-
-        <p>Linguagem de programação {{ usuario.lingProg }}</p>
-
-      </div>
     </div>
   </main>
 </template>
+
+
 <style scoped>
 main.container {
   position: absolute;
   top: 10%;
-  left: 30%;
-  margin-bottom: auto;
-  width: 600px;
-
-
-  background: rgba(0, 0, 0, .5);
+  left: 35%;
+  bottom: 10%;
+  width: 500px;
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
-  border-radius: 10px;
-right:auto;
+  right: auto;
   padding: 2rem;
-
   border-radius: 8px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-
-
-  background: linear-gradient(#141e30, #95b0cc);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  background: linear-gradient(#141e30, #4d2158);
 
 }
-
 main h2 {
-  margin:  20px;
+  margin: 20px;
   padding: 0;
-  color: #fff;
+  color: rgb(228, 203, 233);;
   text-align: center;
-  
 }
-
-
-
 .login-box .user-box input {
   width: 100%;
- 
   font-size: 16px;
   color: #fff;
-  margin-bottom: 30px;
   border: none;
   border-bottom: 1px solid #fff;
   outline: none;
   background: transparent;
 }
-
-
+.user-box {
+  background-color: transparent;
+  position: relative;
+  margin-bottom: 1.1rem;
+}
 .login-box form {
   position: relative;
-  
-  color: #ffffff;
- 
- 
-
-  
+  color: #e2e1e1;
 }
-.button {
-  
-  align-items: center;
-  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
-  border: 0;
-  border-radius: 8px;
-  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  display: flex;
-  font-family: Phantomsans, sans-serif;
-  font-size: 20px;
-  justify-content: center;
-  line-height: 1em;
-  max-width: 100%;
-  min-width: 140px;
-  padding: 3px;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.button:active,
-.button:hover {
-  outline: 0;
-}
-
-.button span {
-  background-color: rgb(5, 6, 45);
-  padding: 16px 24px;
-  border-radius: 6px;
+.btn {
+  margin-top: 2rem;
+  padding: 0.4rem;
   width: 100%;
-  height: 100%;
-  transition: 300ms;
+  background-color:rgb(228, 203, 233);
+  cursor: pointer;
+  color: black;
+  font-size: 0.9rem;
+  font-weight: 300;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  border: none;
 }
 
-.button:hover span {
-  background: none;
+select {
+  background-color:rgb(228, 203, 233);;
+  margin-top: 10px;
+  border-radius: 5px;
+  padding-left: 10px;
+  margin-left: 10px;
+  width: auto;
+  border: none;
 }
-
-@media (min-width: 768px) {
-  .button-64 {
-    font-size: 24px;
-    min-width: 196px;
-  }
-}
-
-
-
-</style>
+.info {
+  color: #f8e2e2;
+}</style>
